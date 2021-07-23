@@ -1,0 +1,707 @@
+[
+    {
+        "id": "143f011c4eb23d3a",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.topic = \n\"USE node_red; SELECT * FROM node_red.contains WHERE P_ID = \"+msg.payload.Product_ID +\";\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "d1d98951d78b891c"
+            ]
+        ]
+    },
+    {
+        "id": "11e7eb666e52396b",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ece3e5e84b13b319",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.payload = msg.payload[1]\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 40,
+        "wires": [
+            [
+                "5f3c66e3afc3161e"
+            ]
+        ]
+    },
+    {
+        "id": "a2123aca9c3dc974",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "\nmsg.topic = \n\"USE node_red; INSERT INTO node_red.contains (P_ID, Name, Price, Discount) VALUES(\"+msg.payload[\"ID\"]+\",\"+msg.payload[\"Name\"]+\",\"+msg.payload[\"Number\"]+\",\"+msg.payload[\"Discount\"]+\");\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "813141d527b529c5",
+                "d1d98951d78b891c"
+            ]
+        ]
+    },
+    {
+        "id": "26263f948160bb86",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.topic = \n\"USE node_red; SELECT P_ID FROM node_red.contains ORDER BY P_ID DESC LIMIT 1;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 320,
+        "wires": [
+            [
+                "628c6377b1d49057"
+            ]
+        ]
+    },
+    {
+        "id": "c59af89e97152782",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4057fa63dcdbca14",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.topic = \n\"use node_red; DELETE FROM contains WHERE P_ID = \"+msg.payload.Product_ID +\";\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 400,
+        "wires": [
+            [
+                "90fef2fdf05a2408"
+            ]
+        ]
+    },
+    {
+        "id": "084e4831ee97e1ed",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "06568968cbea33b6",
+        "type": "ui_button",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "group": "c92829b8d0c11af4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Check Latest Order",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "26263f948160bb86"
+            ]
+        ]
+    },
+    {
+        "id": "e380ab0942a8448f",
+        "type": "ui_form",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "label": "",
+        "group": "c92829b8d0c11af4",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Product_ID",
+                "value": "Product_ID",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "Product_ID": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "143f011c4eb23d3a"
+            ]
+        ]
+    },
+    {
+        "id": "e066fba4705314e3",
+        "type": "ui_form",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "label": "Insert Order",
+        "group": "c92829b8d0c11af4",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Product_ID",
+                "value": "ID",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Product",
+                "value": "Name",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Price",
+                "value": "Number",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Discount",
+                "value": "Discount",
+                "type": "number",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "ID": "",
+            "Name": "",
+            "Number": "",
+            "Discount": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "a2123aca9c3dc974"
+            ]
+        ]
+    },
+    {
+        "id": "aeb882c8d78e7858",
+        "type": "ui_form",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "label": "Delete Order",
+        "group": "2d7a9b44a4a53880",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Enter",
+                "value": "Product_ID",
+                "type": "number",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "Product_ID": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "4057fa63dcdbca14"
+            ]
+        ]
+    },
+    {
+        "id": "1e9e7a35a756f993",
+        "type": "ui_text",
+        "z": "e7a9877503e03d07",
+        "group": "c92829b8d0c11af4",
+        "order": 2,
+        "width": "1",
+        "height": "1",
+        "name": "",
+        "label": "Enter",
+        "format": "{{msg.payload[1][0].Item_ID}}",
+        "layout": "row-center",
+        "x": 820,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "67455bd6b62710c9",
+        "type": "ui_text",
+        "z": "e7a9877503e03d07",
+        "group": "c92829b8d0c11af4",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Latest_Order",
+        "format": "{{payload[1][0].Item_ID}}",
+        "layout": "row-center",
+        "x": 790,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "628c6377b1d49057",
+        "type": "mysql",
+        "z": "e7a9877503e03d07",
+        "mydb": "cc176f43486b99a9",
+        "name": "",
+        "x": 620,
+        "y": 320,
+        "wires": [
+            [
+                "67455bd6b62710c9",
+                "c59af89e97152782"
+            ]
+        ]
+    },
+    {
+        "id": "90fef2fdf05a2408",
+        "type": "mysql",
+        "z": "e7a9877503e03d07",
+        "mydb": "cc176f43486b99a9",
+        "name": "",
+        "x": 1040,
+        "y": 400,
+        "wires": [
+            [
+                "084e4831ee97e1ed"
+            ]
+        ]
+    },
+    {
+        "id": "5f3c66e3afc3161e",
+        "type": "ui_table",
+        "z": "e7a9877503e03d07",
+        "group": "c92829b8d0c11af4",
+        "name": "",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 950,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "813141d527b529c5",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2e3bdf9a1c355e6d",
+        "type": "mysql",
+        "z": "e7a9877503e03d07",
+        "mydb": "3e7bacdd.d2adc4",
+        "name": "",
+        "x": 1060,
+        "y": 500,
+        "wires": [
+            [
+                "78dc7e73762f6f7d"
+            ]
+        ]
+    },
+    {
+        "id": "78dc7e73762f6f7d",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "df6075f58b465389",
+        "type": "ui_form",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "label": "Change Order",
+        "group": "57204a97145e36d3",
+        "order": 21,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "ID",
+                "value": "ID",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Product",
+                "value": "Name",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Price",
+                "value": "Number",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Discount",
+                "value": "Discount",
+                "type": "number",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "ID": "",
+            "Name": "",
+            "Number": "",
+            "Discount": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "x": 700,
+        "y": 500,
+        "wires": [
+            [
+                "ce4f391241d810a4"
+            ]
+        ]
+    },
+    {
+        "id": "d1d98951d78b891c",
+        "type": "mysql",
+        "z": "e7a9877503e03d07",
+        "mydb": "cc176f43486b99a9",
+        "name": "",
+        "x": 620,
+        "y": 100,
+        "wires": [
+            [
+                "11e7eb666e52396b",
+                "1e9e7a35a756f993",
+                "ece3e5e84b13b319"
+            ]
+        ]
+    },
+    {
+        "id": "ce4f391241d810a4",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.topic = \n\"Use node_red; UPDATE contains SET Name=\"+msg.payload[\"Name\"]+\", Price=\"+msg.payload[\"Number\"]+\", Discount = \"+msg.payload[\"Discount\"]+\" WHERE P_ID = \"+msg.payload.ID+ \";\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 500,
+        "wires": [
+            [
+                "2e3bdf9a1c355e6d"
+            ]
+        ]
+    },
+    {
+        "id": "14be0e497a29deb2",
+        "type": "mysql",
+        "z": "e7a9877503e03d07",
+        "mydb": "3e7bacdd.d2adc4",
+        "name": "",
+        "x": 580,
+        "y": 660,
+        "wires": [
+            [
+                "eef10dcad9bbc8b3",
+                "86bd8c8433146efd"
+            ]
+        ]
+    },
+    {
+        "id": "eef10dcad9bbc8b3",
+        "type": "debug",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "0736e2652abf021f",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.topic = \n\"Use node_red; SELECT MIN(Price) AS least , MAX(Price) AS MAX From contains;\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 660,
+        "wires": [
+            [
+                "14be0e497a29deb2"
+            ]
+        ]
+    },
+    {
+        "id": "c1f5f50cffd136b8",
+        "type": "ui_table",
+        "z": "e7a9877503e03d07",
+        "group": "d11a8709f32dc691",
+        "name": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 690,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9c2dfe84910ec518",
+        "type": "ui_button",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "group": "d11a8709f32dc691",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "button",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 360,
+        "y": 520,
+        "wires": [
+            [
+                "0736e2652abf021f"
+            ]
+        ]
+    },
+    {
+        "id": "86bd8c8433146efd",
+        "type": "function",
+        "z": "e7a9877503e03d07",
+        "name": "",
+        "func": "msg.payload = msg.payload[1]\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 780,
+        "wires": [
+            [
+                "c1f5f50cffd136b8"
+            ]
+        ]
+    },
+    {
+        "id": "c92829b8d0c11af4",
+        "type": "ui_group",
+        "name": "Insert Order",
+        "tab": "9ac63604793f8fa5",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "2d7a9b44a4a53880",
+        "type": "ui_group",
+        "name": "Delete Order Function",
+        "tab": "9ac63604793f8fa5",
+        "order": 8,
+        "disp": true,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "cc176f43486b99a9",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "node_red",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "3e7bacdd.d2adc4",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "node_red",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "57204a97145e36d3",
+        "type": "ui_group",
+        "name": "Update Order Function",
+        "tab": "9ac63604793f8fa5",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "d11a8709f32dc691",
+        "type": "ui_group",
+        "name": "The \"Most\" Price",
+        "tab": "9ac63604793f8fa5",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "9ac63604793f8fa5",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
